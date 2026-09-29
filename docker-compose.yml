@@ -1,0 +1,29 @@
+# Optional: run the whole app with Docker instead of the manual steps in SETUP-WINDOWS.md.
+#   1) Copy-Item .env.example .env   and fill in your Hindsight values
+#   2) docker compose up --build
+#   3) Open http://localhost:5173
+services:
+  backend:
+    build: ./backend
+    env_file: .env
+    environment:
+      # Keep the SQLite file on a named volume so data survives container restarts.
+      DATABASE_URL: sqlite:////data/dealmind.db
+      FRONTEND_URL: http://localhost:5173
+    volumes:
+      - dealmind-data:/data
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ""   # same-origin; nginx proxies /api to the backend service
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  dealmind-data:

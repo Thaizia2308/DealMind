@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body { @apply bg-fog font-sans text-ink antialiased; }
+  :focus-visible { outline: 2px solid #2A4BD7; outline-offset: 2px; }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-mem text-white hover:bg-[#1F3BB8]; }
+  .btn-quiet { @apply btn border border-line bg-white text-ink hover:bg-fog; }
+  .field { @apply w-full rounded-md border border-line bg-white px-3 py-2 text-sm placeholder:text-mute/70; }
+  .label { @apply mb-1 block text-xs font-semibold text-mute; }
+
+  /* Briefing typography: the answer reads like a document. */
+  .brief { @apply font-serif text-[16.5px] leading-[1.7] text-ink; }
+  .brief h1, .brief h2, .brief h3 { @apply mt-5 mb-1.5 font-sans text-[15px] font-bold text-ink; }
+  .brief p { @apply my-2.5; }
+  .brief ul { @apply my-2.5 list-disc pl-5; }
+  .brief ol { @apply my-2.5 list-decimal pl-5; }
+  .brief li { @apply my-1; }
+  .brief strong { @apply font-semibold; }
+  .brief hr { @apply my-4 border-line; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
